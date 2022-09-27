@@ -61,6 +61,9 @@ function playRound (playerSelection, computerSelection) {
                 break;
         }
     }
-
+    console.log("You chose: " + playerSelection);
+    console.log("Computer chose: " + computerSelection);
     console.log(roundEnd);
 }
+
+playRound("scissor", getComputerChoice());

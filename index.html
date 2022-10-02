@@ -17,6 +17,11 @@
         <button id="btn" class="paper">Paper</button>
         <button id="btn" class="scissor">Scissor</button>
     </div>
+    <div class="moves-container">
+        <div class="player-move">You Chose:</div>
+        <div class="computer-move">Computer Chose:</div>
+        <div class="final-result">Winner:</div>
+    </div>
     <div class="score">
         <div class="score-item">
             <div class="score-player">0</div>
@@ -27,10 +32,7 @@
             <div class="pc">PC</div>
         </div>
     </div>
-    <div class="moves-container">
-        <div class="player-move"></div>
-        <div class="computer-move"></div>
-    </div>
+    <div class="play-again"></div>
 <script>
     
     const btn = document.querySelectorAll('#btn');
@@ -38,6 +40,7 @@
     const computerScore = document.querySelector('.score-computer');
     const computerMove = document.querySelector('.computer-move');
     const playerMove = document.querySelector('.player-move');
+    const declareWin = document.querySelector('.final-result');
 
     function getComputerChoice() {
     let choice = Math.floor(Math.random() * 3);
@@ -58,55 +61,95 @@
         let playerSelection = this.classList;
         let computerSelection = getComputerChoice();
         let finalResult = '';
+    
+        if (playerPoints < 5 && computerPoints < 5){
 
+            if (playerSelection == "rock") {
+                switch(computerSelection)
+                {
+                    case "rock":
+                        finalResult = "It's a Draw!"
+                        break;
+                    case "paper":
+                        computerPoints += 1;
+                        finalResult = 'You Lose!';
+                        break;
+                    case "scissor":
+                        playerPoints += 1;
+                        finalResult = 'You Win!';
+                        break;
+                }
+            }
+            else if (playerSelection == "paper") {
+                switch(computerSelection)
+                {
+                    case "rock":
+                        playerPoints += 1;
+                        finalResult = 'You Win!';
+                        break;
+                    case "paper":
+                        finalResult = "It's a Draw!"
+                        break;
+                    case "scissor":
+                        computerPoints += 1;
+                        finalResult = 'You Lose!';
+                        break;
+                }
+            }
+            else if (playerSelection == "scissor") {
+                switch(computerSelection)
+                {
+                    case "rock":
+                        computerPoints += 1;
+                        finalResult = 'You Lose!';
+                        break;
+                    case "paper":
+                        playerPoints += 1;
+                        finalResult = 'You Win!';
+                        break;
+                    case "scissor":
+                        finalResult = "It's a Draw!"
+                        break;
+                }
+            }
+            playerScore.textContent = playerPoints;
+            computerScore.textContent = computerPoints;
+            computerMove.textContent  = 'Computer Chose: ' + computerSelection;
+            playerMove.textContent = 'You Chose: ' + playerSelection;
+            declareWin.textContent = finalResult;
+        } 
         
-        if (playerSelection == "rock") {
-        switch(computerSelection)
-        {
-            case "rock":
-                break;
-            case "paper":
-                computerPoints += 1;
-                break;
-            case "scissor":
-                playerPoints += 1;
-                break;
+        if (playerPoints == 5 || computerPoints == 5){
+            playerPoints += 10; computerPoints += 10; //hack for stopping this function from being called repeatedly
+            createPlayAgain();
         }
-    }
-    else if (playerSelection == "paper") {
-        switch(computerSelection)
-        {
-            case "rock":
-                playerPoints += 1;
-                break;
-            case "paper":
-                break;
-            case "scissor":
-                computerPoints += 1;
-                break;
-        }
-    }
-    else if (playerSelection == "scissor") {
-        switch(computerSelection)
-        {
-            case "rock":
-                computerPoints += 1;
-                break;
-            case "paper":
-                playerPoints += 1;
-                break;
-            case "scissor":
-                break;
-        }
+
+    } 
+
+    let container; //global variables used in functions createPlayAgain and restartGame
+    let newButton;
+
+    function createPlayAgain() {
+        container = document.querySelector('.play-again');
+        newButton = document.createElement('button');
+        newButton.classList.add('reset-button');
+        newButton.textContent = "Play Again?";
+        newButton.style.cssText = 'padding: 16px; font-size: 16px; font-weight: 700; border-radius: 20px;';
+        container.appendChild(newButton); 
+        newButton.addEventListener('click',restartGame);
     }
 
-    playerScore.textContent = playerPoints;
-    computerScore.textContent = computerPoints;
-    computerMove.textContent  = 'Computer Chose: ' + computerSelection;
-    playerMove.textContent = 'You Chose: ' + playerSelection;
+    function restartGame(){
+        playerPoints = 0;
+        computerPoints = 0;
+        container.removeChild(newButton);
+        computerMove.textContent = 'Computer Chose:';
+        playerMove.textContent = 'You Chose:';
+        declareWin.textContent = 'Winner:';
+        playerScore.textContent = playerPoints;
+        computerScore.textContent = computerPoints;
     }
     
-
     btn.forEach(btn => btn.addEventListener('click',chooseMoveAndPlay));
 
 </script>

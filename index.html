@@ -58,7 +58,7 @@
     
     
     function chooseMoveAndPlay(){
-        let playerSelection = this.classList;
+        let playerSelection = this.classList; //current buttons class --> then used for game logic below.
         let computerSelection = getComputerChoice();
         let finalResult = '';
     
@@ -120,7 +120,7 @@
         } 
         
         if (playerPoints == 5 || computerPoints == 5){
-            playerPoints += 10; computerPoints += 10; //hack for stopping this function from being called repeatedly
+            playerPoints += 10; computerPoints += 10; //hack for stopping this function from being called repeatedly when game should be over
             createPlayAgain();
         }
 

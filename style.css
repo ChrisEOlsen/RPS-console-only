@@ -1,0 +1,54 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: black;
+    color: white;
+}
+
+.btns{
+    display: flex;
+    gap: 50px;
+    margin: 50px;
+}
+button {
+    width: 120px;
+    height: 120px;
+    border: 2px solid darkblue;
+    border-radius: 20px;
+    background-color: white;
+}
+button:hover{
+    background-color: blue;
+}
+
+.score {
+    display: flex;
+    gap: 50px;   
+}
+
+.score-player, .score-computer {
+    display: flex;
+    background-color: grey;
+    width: 60px;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.score-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.moves-container{
+    display: flex;
+    flex-direction: column;
+    margin: 25px;
+}
